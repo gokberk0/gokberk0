@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Giydir Beni - Profesyonel Kombin Danışmanı</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+  :root {
+    --main-bg: #1a1a1d;
+    --primary: #ff69b4;
+    --secondary: #f8c8dc;
+    --text-light: #f1f1f1;
+    --text-dark: #333;
+    --box-bg: #2e2e33;
+    --fav-color: #ff4d6d;
+    --fav-color-active: #e63950;
+
+    --tag-casual: #4caf50;
+    --tag-smartcasual: #2196f3;
+    --tag-classic: #ff9800;
+    --tag-wedding: #9c27b0;
+    --tag-summer: #ff5722;
+    --tag-winter: #00bcd4;
+  }
+
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  body {
+    background: var(--main-bg);
+    color: var(--text-light);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding-bottom: 3rem;
+  }
+
+  header {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+  header h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  header p {
+    font-size: 1.2rem;
+  }
+
+  section {
+    padding: 2rem 1.5rem;
+    max-width: 960px;
+    margin: auto;
+  }
+
+  .features {
+    display: grid;
+    gap: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  @media(min-width:768px){
+    .features {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .box {
+    background: var(--box-bg);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(255, 105, 180, 0.5);
+  }
+  .box h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+
+  input, button, select {
+    padding: 0.7rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  input {
+    background: #f1f1f1;
+    color: var(--text-dark);
+  }
+  button {
+    background: var(--primary);
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background: #ff85c1;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 1.2rem;
+    margin-top: 0.5rem;
+    max-height: 160px;
+    overflow-y: auto;
+  }
+  ul li {
+    padding: 0.4rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .delete-btn {
+    background-color: var(--fav-color);
+    border: none;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    line-height: 18px;
+    text-align: center;
+    margin-left: 0.8rem;
+    transition: background-color 0.3s ease;
+  }
+  .delete-btn:hover {
+    background-color: var(--fav-color-active);
+  }
+
+  .avatar-box {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 5rem;
+    user-select: none;
+  }
+  .avatar-clothes {
+    font-size: 1.2rem;
+    color: var(--secondary);
+    margin-top: 0.6rem;
+  }
+
+  .planner {
+    margin-top: 1rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background: var(--box-bg);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+  .planner label {
+    color: var(--primary);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 1rem;
+  }
+  .planner input[type="date"], .planner select {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+  }
+  .planner button {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  .planner button:hover {
+    background: #ff85c1;
+  }
+  .saved-plans {
+    margin-top: 1rem;
+    max-height: 140px;
+    overflow-y: auto;
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
+  .saved-plans div {
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding: 6px 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .saved-plans div:last-child {
+    border-bottom: none;
+  }
+  .saved-plans button {
+    background: var(--fav-color);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+  .saved-plans button:hover {
+    background: var(--fav-color-active);
+  }
+
+  /* Kombin Kartları */
+  .combo-section {
+    margin-top: 3rem;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .combo-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 0.7rem;
+  }
+  .combo-header input {
+    flex: 1 1 300px;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+  }
+  .combo-header select {
+    flex: 0 0 180px;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    background: var(--box-bg);
+    color: var(--text-light);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .combo-header select:hover, .combo-header select:focus {
+    background: var(--primary);
+    color: white;
+  }
+  .combo-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 1rem;
+  }
+  .combo-card {
+    background: var(--box-bg);
+    border-radius: 15px;
+    padding: 1.2rem 1rem 1rem 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: box-shadow 0.3s ease;
+    position: relative;
+  }
+  .combo-card:hover {
+    box-shadow: 0 10px 20px rgba(255, 105, 180, 0.6);
+  }
+  .combo-card h4 {
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--primary);
+    text-align: center;
+    user-select: none;
+  }
+  .combo-desc {
+    flex-grow: 1;
+    color: var(--secondary);
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    min-height: 4.5rem;
+    text-align: center;
+  }
+  .combo-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .fav-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: var(--fav-color);
+    transition: color 0.3s ease;
+    user-select: none;
+  }
+  .fav-btn.active {
+    color: var(--fav-color-active);
+    text-shadow: 0 0 6px var(--fav-color-active);
+  }
+  .combo-tag {
+    padding: 0.3rem 0.9rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #fff;
+    text-transform: uppercase;
+    user-select: none;
+    width: fit-content;
+    margin: 0 auto 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tag-casual { background-color: var(--tag-casual); }
+  .tag-smartcasual { background-color: var(--tag-smartcasual); }
+  .tag-classic { background-color: var(--tag-classic); }
+  .tag-wedding { background-color: var(--tag-wedding); }
+  .tag-summer { background-color: var(--tag-summer); }
+  .tag-winter { background-color: var(--tag-winter); }
+
+  /* Alışveriş linkleri */
+  .shop-links {
+    margin-top: 0.8rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--secondary);
+  }
+  .shop-links a {
+    color: var(--primary);
+    margin: 0 0.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .shop-links a:hover {
+    color: var(--fav-color);
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 4rem;
+    padding: 1rem 0;
+    color: var(--secondary);
+    font-size: 0.9rem;
+    user-select: none;
+  }
+
+  /* Giriş + Hava Durumu yan yana */
+  .weather-container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 2rem auto 3rem;
+    flex-wrap: wrap;
+  }
+  .weather-container .input-group,
+  .weather-container .weather-panel {
+    flex: 1 1 400px;
+    min-width: 280px;
+    background: var(--box-bg);
+    border-radius: 15px;
+    padding: 1.5rem 1.2rem;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+  }
+  .weather-container .input-group label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+  .weather-container .input-group button {
+    margin-top: 1.8rem;
+  }
+
+  .weather-panel h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: var(--primary);
+    user-select: none;
+  }
+  .weather-icon {
+    display: block;
+    margin: 0 auto 1rem;
+    width: 90px;
+    height: 90px;
+  }
+  .weather-temp {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.4rem;
+  }
+  .weather-condition {
+    text-align: center;
+    font-size: 1.3rem;
+    color: var(--secondary);
+    margin-bottom: 0.6rem;
+  }
+  .weather-info {
+    text-align: center;
+    font-size: 1.05rem;
+    color: var(--secondary);
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Giydir Beni 👗</h1>
+  <p>Profesyonel Yapay Zekâ Destekli Kombin Danışmanı</p>
+</header>
+
+<section>
+  <h2 style="margin-bottom:1rem;">Amacımız</h2>
+  <p>"Giydir Beni", yapay zekâ, hava durumu ve dolap senkronizasyonu ile sabah "Bugün ne giysem?" sorusuna profesyonel çözüm sunar.</p>
+</section>
+
+<section class="features">
+  <div class="box">
+    <h3>🌦️ Hava Durumu Takibi</h3>
+    <p>Bulunduğun şehre göre kıyafet önerileri al.</p>
+  </div>
+  <div class="box">
+    <h3>🧠 Yapay Zeka Önerileri</h3>
+    <p>Stiline uygun kombinleri öğren.</p>
+  </div>
+  <div class="box">
+    <h3>👚 Kıyafet Dolabı Senkronu</h3>
+    <p>Sahip olduğun kıyafetlere göre öneriler oluştur.</p>
+  </div>
+</section>
+
+<!-- Giriş ve Hava Durumu Yan Yana -->
+<section class="weather-container">
+
+  <section class="input-group">
+    <label for="cityInput">Şehir (Örnek: İstanbul)</label>
+    <input type="text" id="cityInput" placeholder="Şehir" autocomplete="off" />
+
+    <label for="heightInput">Boy (cm)</label>
+    <input type="number" id="heightInput" placeholder="Boy (cm)" min="50" max="250" value="170" />
+
+    <label for="weightInput">Kilo (kg)</label>
+    <input type="number" id="weightInput" placeholder="Kilo (kg)" min="30" max="200" value="70" />
+
+    <label for="ageInput">Yaş</label>
+    <input type="number" id="ageInput" placeholder="Yaş" min="10" max="100" value="30" />
+
+    <button onclick="getWeatherRecommendation()">Öneri Al</button>
+  </section>
+
+  <section class="weather-panel" id="weatherPanel" style="display:none;">
+    <h2>Hava Durumu</h2>
+    <img id="weatherIcon" class="weather-icon" src="" alt="Weather Icon" />
+    <div class="weather-temp" id="weatherTemp"></div>
+    <div class="weather-condition" id="weatherCondition"></div>
+    <div class="weather-info" id="weatherInfo"></div>
+    <div class="avatar-box" style="margin-top:1.5rem;">
+      <div class="avatar" id="avatar">🧍‍♀️</div>
+      <div class="avatar-clothes" id="avatarClothes">Kombin önerisi burada görünecek</div>
+    </div>
+  </section>
+
+</section>
+
+<section class="planner">
+  <h2>🗓️ Kombin Takvimi (Tarih Seç & Kaydet)</h2>
+  <label for="datePicker">Tarih seç</label>
+  <input type="date" id="datePicker" />
+
+  <label for="styleSelect">Stil seç</label>
+  <select id="styleSelect" onchange="updatePlanSelectOptions()">
+    <option value="">-- Stil Seç --</option>
+    <option value="casual">Casual 👕</option>
+    <option value="smartcasual">Smart Casual 👔</option>
+    <option value="classic">Classic 🎩</option>
+    <option value="wedding">Wedding 💍</option>
+    <option value="summer">Summer ☀️</option>
+    <option value="winter">Winter ❄️</option>
+  </select>
+
+  <label for="planSelect">Kombin seç</label>
+  <select id="planSelect">
+    <option value="">-- Önce stil seçin --</option>
+  </select>
+
+  <button onclick="savePlan()">Kaydet</button>
+
+  <div class="saved-plans" id="savedPlans"></div>
+</section>
+
+<section class="sub-section">
+  <h2>👚 Kıyafet Dolabı</h2>
+  <input type="text" id="wardrobeInput" placeholder="Yeni kıyafet ekle (örnek: Beyaz Tişört)" />
+  <button onclick="addToWardrobe()">Dolaba Ekle</button>
+  <ul id="wardrobeList"></ul>
+</section>
+
+<!-- Kombin Kartları Bölümü -->
+<section class="combo-section">
+  <div class="combo-header">
+    <input type="text" id="comboSearch" placeholder="Kombin ara..." oninput="filterCombos()" />
+    <select id="comboFilter" onchange="filterCombos()">
+      <option value="">Tüm kategoriler</option>
+      <option value="casual">Casual</option>
+      <option value="smartcasual">Smart Casual</option>
+      <option value="classic">Classic</option>
+      <option value="wedding">Wedding</option>
+      <option value="summer">Summer</option>
+      <option value="winter">Winter</option>
+    </select>
+  </div>
+  <div class="combo-cards" id="comboCards"></div>
+</section>
+
+<footer>
+  <p>© 2025 Giydir Beni - Tüm Hakları Saklıdır</p>
+</footer>
+
+<script>
+// ************ WeatherAPI Entegrasyonu ************
+const apiKey = "62acf17cd78f48b880b92123250607"; // <-- Buraya kendi WeatherAPI anahtarınızı yapıştırın
+
+async function getWeather(city) {
+  try {
+    const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(city)}&lang=tr`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Hava durumu alınamadı.");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    alert("Hava durumu verisi alınırken hata oluştu: " + error.message);
+    return null;
+  }
+}
+
+function kelvinToCelsius(k) {
+  return Math.round(k - 273.15);
+}
+
+// Avatar ve kombin önerisi basit örnek
+function getClothesSuggestion(tempC, style) {
+  let suggestion = "";
+  if (tempC > 25) {
+    suggestion = "Hafif tişört ve şort 👕🩳";
+  } else if (tempC > 15) {
+    suggestion = "Uzun kollu gömlek ve pantolon 👔👖";
+  } else if (tempC > 5) {
+    suggestion = "Sweatshirt ve kot pantolon 👚👖";
+  } else {
+    suggestion = "Kalın mont ve atkı 🧥🧣";
+  }
+  // Stil bazında ufak eklemeler
+  switch (style) {
+    case "casual": suggestion += " (Gündelik)"; break;
+    case "smartcasual": suggestion += " (Smart Casual)"; break;
+    case "classic": suggestion += " (Klasik)"; break;
+    case "wedding": suggestion += " (Düğün)"; break;
+    case "summer": suggestion += " (Yazlık)"; break;
+    case "winter": suggestion += " (Kışlık)"; break;
+  }
+  return suggestion;
+}
+
+async function getWeatherRecommendation() {
+  const city = document.getElementById("cityInput").value.trim();
+  const height = Number(document.getElementById("heightInput").value);
+  const weight = Number(document.getElementById("weightInput").value);
+  const age = Number(document.getElementById("ageInput").value);
+  const style = document.getElementById("styleSelect").value;
+
+  if (!city) {
+    alert("Lütfen şehir bilgisini girin.");
+    return;
+  }
+  if (!height || !weight || !age) {
+    alert("Boy, kilo ve yaş değerlerini eksiksiz girin.");
+    return;
+  }
+
+  const weatherPanel = document.getElementById("weatherPanel");
+  weatherPanel.style.display = "block";
+
+  const data = await getWeather(city);
+  if (!data) {
+    weatherPanel.style.display = "none";
+    return;
+  }
+
+  const tempC = data.current.temp_c;
+  const conditionText = data.current.condition.text;
+  const iconUrl = "https:" + data.current.condition.icon;
+
+  document.getElementById("weatherIcon").src = iconUrl;
+  document.getElementById("weatherIcon").alt = conditionText;
+  document.getElementById("weatherTemp").textContent = tempC + "°C";
+  document.getElementById("weatherCondition").textContent = conditionText;
+  document.getElementById("weatherInfo").textContent = `Nem: ${data.current.humidity}%, Rüzgar: ${data.current.wind_kph} km/sa`;
+
+  // Basit avatar ve kombin önerisi:
+  const avatar = document.getElementById("avatar");
+  const avatarClothes = document.getElementById("avatarClothes");
+
+  // Yaşa göre avatar simgesi basitleştirildi
+  let avatarIcon = "🧍‍♂️";
+  if (age < 18) avatarIcon = "🧒";
+  else if (age >= 18 && age < 40) avatarIcon = "🧍‍♂️";
+  else avatarIcon = "🧓";
+
+  avatar.textContent = avatarIcon;
+
+  // Kombin önerisi
+  avatarClothes.textContent = getClothesSuggestion(tempC, style || "casual");
+}
+
+// ************ Kombin Takvimi & Kıyafet Dolabı ************
+
+// Stil bazlı kombinler:
+const combos = [
+  {id:1, name:"Gündelik Rahat Kombin", description:"Tişört ve kot pantolon, spor ayakkabı ile.", tags:["casual","summer"], shop:["https://example.com/tişört","https://example.com/kotpantolon"]},
+  {id:2, name:"Akşam Smart Casual", description:"Uzun kollu gömlek ve koyu renk pantolon.", tags:["smartcasual","classic"], shop:["https://example.com/gömlek","https://example.com/pantolon"]},
+  {id:3, name:"Düğün Klasik Takım", description:"Takım elbise, kravat ve klasik ayakkabı.", tags:["classic","wedding"], shop:["https://example.com/takim","https://example.com/kravat"]},
+  {id:4, name:"Yazlık Hafif Kombin", description:"Kısa kollu gömlek ve şort.", tags:["casual","summer"], shop:["https://example.com/gömlek","https://example.com/şort"]},
+  {id:5, name:"Kışlık Montlu Kombin", description:"Kalın mont ve botlarla sıcak kal.", tags:["winter","classic"], shop:["https://example.com/mont","https://example.com/bot"]},
+];
+
+// Kıyafet dolabı:
+let wardrobe = [];
+
+// Dolaba ekle
+function addToWardrobe() {
+  const input = document.getElementById("wardrobeInput");
+  const val = input.value.trim();
+  if (val && !wardrobe.includes(val)) {
+    wardrobe.push(val);
+    renderWardrobe();
+    input.value = "";
+  }
+}
+
+// Listeyi göster
+function renderWardrobe() {
+  const ul = document.getElementById("wardrobeList");
+  ul.innerHTML = "";
+  wardrobe.forEach((item, i) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    const btn = document.createElement("button");
+    btn.textContent = "×";
+    btn.className = "delete-btn";
+    btn.title = "Sil";
+    btn.onclick = () => {
+      wardrobe.splice(i,1);
+      renderWardrobe();
+    };
+    li.appendChild(btn);
+    ul.appendChild(li);
+  });
+}
+
+// Kombin kartları gösterimi
+function renderCombos() {
+  const container = document.getElementById("comboCards");
+  container.innerHTML = "";
+  combos.forEach(c => {
+    const card = document.createElement("div");
+    card.className = "combo-card";
+    card.setAttribute("data-tags", c.tags.join(" "));
+    card.setAttribute("data-name", c.name.toLowerCase());
+
+    let tagClasses = c.tags.map(t => `tag-${t}`).join(" ");
+    card.innerHTML = `
+      <h4>${c.name}</h4>
+      <div class="combo-desc">${c.description}</div>
+      <div class="combo-tag ${tagClasses}">${c.tags.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(", ")}</div>
+      <div class="shop-links">${c.shop.map(url => `<a href="${url}" target="_blank" rel="noopener noreferrer">Alışveriş</a>`).join(" | ")}</div>
+      <div class="combo-actions">
+        <button class="fav-btn" title="Favorilere ekle">♡</button>
+      </div>
+    `;
+    // Favori butonu işlevi
+    const favBtn = card.querySelector(".fav-btn");
+    favBtn.onclick = () => {
+      favBtn.classList.toggle("active");
+      favBtn.textContent = favBtn.classList.contains("active") ? "❤️" : "♡";
+    };
+
+    container.appendChild(card);
+  });
+}
+
+// Kombin filtreleme
+function filterCombos() {
+  const search = document.getElementById("comboSearch").value.toLowerCase();
+  const filter = document.getElementById("comboFilter").value.toLowerCase();
+  const cards = document.querySelectorAll(".combo-card");
+  cards.forEach(card => {
+    const name = card.getAttribute("data-name");
+    const tags = card.getAttribute("data-tags");
+    const matchSearch = name.includes(search);
+    const matchFilter = !filter || tags.includes(filter);
+    card.style.display = (matchSearch && matchFilter) ? "flex" : "none";
+  });
+}
+
+// Kombin takvimi fonksiyonları
+let savedPlans = {};
+
+function savePlan() {
+  const date = document.getElementById("datePicker").value;
+  const style = document.getElementById("styleSelect").value;
+  const plan = document.getElementById("planSelect").value;
+
+  if (!date || !style || !plan) {
+    alert("Tarih, stil ve kombin seçmelisiniz.");
+    return;
+  }
+
+  if (!savedPlans[date]) savedPlans[date] = {};
+  savedPlans[date][style] = plan;
+
+  renderSavedPlans();
+  alert("Kombin kaydedildi!");
+}
+
+function renderSavedPlans() {
+  const container = document.getElementById("savedPlans");
+  container.innerHTML = "";
+  Object.keys(savedPlans).forEach(date => {
+    const styles = savedPlans[date];
+    Object.keys(styles).forEach(style => {
+      const planName = styles[style];
+      const div = document.createElement("div");
+      div.textContent = `${date} - ${style.toUpperCase()} - ${planName}`;
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "×";
+      delBtn.title = "Sil";
+      delBtn.onclick = () => {
+        delete savedPlans[date][style];
+        if (Object.keys(savedPlans[date]).length === 0) delete savedPlans[date];
+        renderSavedPlans();
+      };
+      div.appendChild(delBtn);
+      container.appendChild(div);
+    });
+  });
+}
+
+// Plan seçeneğini stil bazlı güncelle
+function updatePlanSelectOptions() {
+  const style = document.getElementById("styleSelect").value;
+  const planSelect = document.getElementById("planSelect");
+  planSelect.innerHTML = "";
+
+  if (!style) {
+    planSelect.innerHTML = `<option value="">-- Önce stil seçin --</option>`;
+    return;
+  }
+
+  const filtered = combos.filter(c => c.tags.includes(style));
+  if (filtered.length === 0) {
+    planSelect.innerHTML = `<option value="">Kombin bulunamadı</option>`;
+    return;
+  }
+  planSelect.innerHTML = `<option value="">-- Kombin seç --</option>`;
+  filtered.forEach(c => {
+    const option = document.createElement("option");
+    option.value = c.name;
+    option.textContent = c.name;
+    planSelect.appendChild(option);
+  });
+}
+
+// Başlangıçta kombinleri ve dolabı renderla
+renderCombos();
+renderWardrobe();
+renderSavedPlans();
+
+</script>
+
+</body>
+</html>
